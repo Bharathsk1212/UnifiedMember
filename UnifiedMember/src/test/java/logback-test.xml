@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+ 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+  
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>target/karate.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>   
+    
+    
+    
+    <appender name="RP" class="com.epam.reportportal.logback.appender.ReportPortalAppender">
+        <encoder>
+            <!--Best practice: don't put time and logging level to the final message. Appender do this for you-->
+            <pattern>%d{HH:mm:ss.SSS} [%t] %-5level - %msg%n</pattern>
+            <pattern>[%t] - %msg%n</pattern>
+        </encoder>
+    </appender> 
+    
+    <logger name="binary_data_logger" level="TRACE" additivity="false">
+        <appender-ref ref="RP"/>
+    </logger>
+   
+    <logger name="com.intuit" level="DEBUG"/>
+   
+    <root level="info">
+    	<appender-ref ref="RP" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+  
+</configuration>
